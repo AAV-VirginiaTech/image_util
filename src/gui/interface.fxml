@@ -13,12 +13,12 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" prefHeight="800.0" prefWidth="1000.0" stylesheets="/display/display.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="display.Logic">
+<GridPane alignment="center" hgap="10" prefHeight="800.0" prefWidth="1000.0" stylesheets="/gui/display.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Logic">
    <Button onAction="#sayTESTCallResponse" text="[TEST] Call" GridPane.columnIndex="4" />
    <Label fx:id="helloWorld" GridPane.columnIndex="2" GridPane.rowIndex="2" />
    <ImageView fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
       <image>
-         <Image url="@../Resources/EXpicture.jpg" />
+         <Image url="@../../Resources/EXpicture.jpg" />
       </image>
    </ImageView>
    <SplitPane dividerPositions="0.5, 0.7441471571906354" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" GridPane.columnIndex="4" GridPane.rowIndex="1">

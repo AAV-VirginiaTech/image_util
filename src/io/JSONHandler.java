@@ -1,7 +1,12 @@
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+package io;
 
-public class CreateJSONFile {
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class JSONHandler {
 
 	public static void main(String[] args) {
 		JSONObject obj = new JSONObject();
@@ -12,11 +17,11 @@ public class CreateJSONFile {
 		int user_alphanumeric = 0;
 		int user_alphaColor = 50;
 		
-		string orientation = "hi";
-		string shape = " ";
-		string alphanumeric = " ";
-		string backColor = " ";
-		string alphaColor = " ";
+		String orientation = "hi";
+		String shape = " ";
+		String alphanumeric = " ";
+		String backColor = " ";
+		String alphaColor = " ";
 		
 		if (user_orientation == 10)	{
 			orientation = "North";
@@ -338,14 +343,14 @@ public class CreateJSONFile {
 		obj.put("name", "Billy bob");
 		obj.put("location","USA");
 		JSONArray list = new JSONArray();
-		list.add("Java");
-		list.add("JSP");
-		list.add("Servlets");
+		list.put("Java");
+		list.put("JSP");
+		list.put("Servlets");
 		obj.put("courses", list);
 		
 		try(FileWriter file = new FileWriter("myJson.json"))
 		{
-			file.writer(obj.toString());
+			file.write(obj.toString());
 			file.flush();
 		}
 		catch(IOException e)
