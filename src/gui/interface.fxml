@@ -60,9 +60,11 @@
    </SplitPane>
    <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
      <buttons>
+        <Button mnemonicParsing="false" text="Preview" onAction="#preview" />
+        <Button mnemonicParsing="false" text="Create File" onAction="#pushchanges" />
         <Button mnemonicParsing="false" text="Reset" onAction="#resetallfields" />
         <Button mnemonicParsing="false" text="Previous &lt;"/>
-       <Button mnemonicParsing="false" text="Next &gt;" />
+       <Button mnemonicParsing="false" text="Next &gt;" onAction="#nextimage" />
      </buttons>
    </ButtonBar>
    <Label text="Image Tagger 40K Live" GridPane.columnIndex="2" />
