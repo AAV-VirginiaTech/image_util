@@ -15,7 +15,7 @@
 
 <GridPane alignment="center" hgap="10" prefHeight="800.0" prefWidth="1000.0" stylesheets="/gui/display.css" vgap="10" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Logic">
    <Button onAction="#sayTESTCallResponse" text="[TEST] Call" GridPane.columnIndex="4" />
-   <Label fx:id="helloWorld" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+   <Label fx:id="Feedback" GridPane.columnIndex="2" GridPane.rowIndex="2" />
    <ImageView fitHeight="600.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
       <image>
          <Image url="@../../Resources/EXpicture.jpg" />
@@ -50,7 +50,7 @@
                <TextField promptText="Other..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
                <TextField promptText="Other..." GridPane.columnIndex="2" GridPane.rowIndex="2" />
                <TextField promptText="Other..." GridPane.columnIndex="2" GridPane.rowIndex="3" />
-               <Button mnemonicParsing="false" text="Add/Remove" GridPane.columnIndex="3" />
+               <Button onAction="#modifylocation" mnemonicParsing="false" text="Add/Remove" GridPane.columnIndex="3" />
                <Button mnemonicParsing="false" text="Add/Remove" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                <Button mnemonicParsing="false" text="Add/Remove" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                <Button mnemonicParsing="false" text="Add/Remove" GridPane.columnIndex="3" GridPane.rowIndex="3" />
@@ -60,6 +60,8 @@
    </SplitPane>
    <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
      <buttons>
+        <Button mnemonicParsing="false" text="Reset" onAction="#resetallfields" />
+        <Button mnemonicParsing="false" text="Previous &lt;"/>
        <Button mnemonicParsing="false" text="Next &gt;" />
      </buttons>
    </ButtonBar>
