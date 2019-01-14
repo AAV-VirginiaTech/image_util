@@ -1,5 +1,6 @@
 .root {
-    -fx-background-color: white;
+    -fx-background-color: maroon;
+    -fx-border-color: orange;
 }
 .label {
     -fx-font-size: 20;

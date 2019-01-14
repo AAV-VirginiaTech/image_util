@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
@@ -42,15 +44,85 @@
                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-               <ChoiceBox prefWidth="300.0" GridPane.columnIndex="1" />
-               <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-               <ChoiceBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+               <Label text="Orientation" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+               <ComboBox fx:id="dropDirect" layoutX="15.0" layoutY="33.0" prefWidth="300.0" promptText="ORIENTATION" GridPane.columnIndex="1">
+                  <items>
+                     <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="North" />
+                        <String fx:value="North-East" />
+                        <String fx:value="East" />
+                        <String fx:value="South-East" />
+                        <String fx:value="South" />
+                        <String fx:value="South-West" />
+                        <String fx:value="West" />
+                        <String fx:value="North-West" />
+                     </FXCollections>
+                  </items>
+               </ComboBox>
+
+               <Label text="Shape" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+               <ComboBox fx:id="dropShape" layoutX="15.0" layoutY="33.0" prefWidth="300.0" promptText="SHAPE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                  <items>
+                     <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Circle" />
+                        <String fx:value="Semicircle" />
+                        <String fx:value="Quarter-circle" />
+                        <String fx:value="Triangle" />
+                        <String fx:value="Square" />
+                        <String fx:value="Rectangle" />
+                        <String fx:value="Trapazoid" />
+                        <String fx:value="Pentagon" />
+                        <String fx:value="Hexagon" />
+                        <String fx:value="Heptagon" />
+                        <String fx:value="Octogon" />
+                        <String fx:value="Star" />
+                        <String fx:value="Cross" />
+                     </FXCollections>
+                  </items>
+               </ComboBox>
+
+               <Label text="Color" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+               <ComboBox fx:id="dropColor" layoutX="15.0" layoutY="33.0" prefWidth="300.0" promptText="COLOR" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <items>
+                     <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Red" />
+                        <String fx:value="Orange" />
+                        <String fx:value="Yellow" />
+                        <String fx:value="Green" />
+                        <String fx:value="Blue" />
+                        <String fx:value="Purple" />
+                        <String fx:value="Brown" />
+                        <String fx:value="White" />
+                        <String fx:value="Gray" />
+                        <String fx:value="Black" />
+
+                     </FXCollections>
+                  </items>
+               </ComboBox>
+
+               <Label text="Symbol" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+               <TextField promptText="Symbol" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               </TextField>
+               <ComboBox fx:id="dropSymbolcolor" layoutX="15.0" layoutY="33.0" prefWidth="300.0" promptText="SYM COLOR" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <items>
+                     <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Red" />
+                        <String fx:value="Orange" />
+                        <String fx:value="Yellow" />
+                        <String fx:value="Green" />
+                        <String fx:value="Blue" />
+                        <String fx:value="Purple" />
+                        <String fx:value="Brown" />
+                        <String fx:value="White" />
+                        <String fx:value="Gray" />
+                        <String fx:value="Black" />
+                     </FXCollections>
+                  </items>
+               </ComboBox>
                <TextField promptText="Other..." GridPane.columnIndex="2" />
                <TextField promptText="Other..." GridPane.columnIndex="2" GridPane.rowIndex="1" />
                <TextField promptText="Other..." GridPane.columnIndex="2" GridPane.rowIndex="2" />
-               <TextField promptText="Other..." GridPane.columnIndex="2" GridPane.rowIndex="3" />
-               <Button onAction="#modifylocation" mnemonicParsing="false" text="Add/Remove" GridPane.columnIndex="3" />
+               <Button mnemonicParsing="false" onAction="#modifylocation" text="Add/Remove" GridPane.columnIndex="3" />
                <Button mnemonicParsing="false" text="Add/Remove" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                <Button mnemonicParsing="false" text="Add/Remove" GridPane.columnIndex="3" GridPane.rowIndex="2" />
                <Button mnemonicParsing="false" text="Add/Remove" GridPane.columnIndex="3" GridPane.rowIndex="3" />
@@ -60,20 +132,16 @@
    </SplitPane>
    <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
      <buttons>
-        <Button mnemonicParsing="false" text="Preview" onAction="#preview" />
-        <Button mnemonicParsing="false" text="Create File" onAction="#pushchanges" />
-        <Button mnemonicParsing="false" text="Reset" onAction="#resetallfields" />
-        <Button mnemonicParsing="false" text="Previous &lt;"/>
-       <Button mnemonicParsing="false" text="Next &gt;" onAction="#nextimage" />
+        <Button mnemonicParsing="false" onAction="#preview" text="Preview" />
+        <Button mnemonicParsing="false" onAction="#pushchanges" text="Create File" />
+        <Button mnemonicParsing="false" onAction="#resetallfields" text="Reset" />
+        <Button mnemonicParsing="false" text="Previous &lt;" />
+       <Button alignment="CENTER" mnemonicParsing="false" onAction="#nextimage" text="Next &gt;" />
      </buttons>
    </ButtonBar>
-   <Label text="Image Tagger 40K Live" GridPane.columnIndex="2" />
+   <Label text="Imagename" GridPane.columnIndex="2" />
 
    <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
       <ColumnConstraints maxWidth="1.7976931348623157E308" minWidth="160.0" prefWidth="500.0" />
       <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
       <ColumnConstraints />
@@ -81,11 +149,8 @@
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
       <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+      <RowConstraints />
+      <RowConstraints />
    </rowConstraints>
 </GridPane>
