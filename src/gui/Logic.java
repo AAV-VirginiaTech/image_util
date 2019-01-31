@@ -60,4 +60,13 @@ public class Logic { //-----button logic for button functions
 
         Feedback.setText("Text file created at: " + filedir);
     }
+
+    public void imgNext(ActionEvent actionEvent) {
+    }
+
+    public void imgPrev(ActionEvent actionEvent) {
+    }
+
+    public void imgCrop(ActionEvent actionEvent) {
+    }
 }
