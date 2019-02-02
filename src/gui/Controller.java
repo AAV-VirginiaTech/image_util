@@ -1,72 +1,96 @@
-/*This file is the logic behind the ui, it handles the button interactions, reads image information,
-* and ultimately creates and sends a string containing image information to the turned into a json file*/
 package gui;
-//Import hell 0, java
 
-//Import hell 1, javafx
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 
-//Import hell 2, java io
 
+/**
+ * This is the controller class that provides functionality to the buttons.
+ */
+public class Controller {
 
-public class Logic { //-----button logic for button functions
-    public Label Feedback;
+    /**
+     * The feedback label across the top of the screen
+     */
+    private Label feedback;
 
-    //-----File logic for creating the output string file.
-    /*    File dir = new File("io/test");
-        dir.mkdirs();
-    File tmp = new File(dir, "tmp.txt");
-        tmp.createNewFile();*/
+    @FXML
+    private ComboBox<String> dropSymbol;
+
 
     int one = 1;
     String Outstring = "";
 
+    /**
+     * Implements the actions when reset button is clicked
+     *
+     * @param actionEvent The event that triggered the call
+     */
+    public void onResetClicked(ActionEvent actionEvent) {
+        feedback.setText("Resetting all fields...");
 
-    public void sayTESTCallResponse(ActionEvent actionEvent) { //temporary button for learning purposes
-        Feedback.setText("Response");
-        one += 1;
-        Outstring += "wungus";
-    }
-
-
-    public void modifylocation(ActionEvent actionEvent) { //temporary button for learning purposes
-        /*Feedback.setText(String.valueOf(one));*/
-
-    }
-
-    public void resetallfields(ActionEvent actionEvent) { //Resets dropdown buttons when [RESET} is pushed
-        Feedback.setText("Resetting all fields...");
-
-        Feedback.setText("Resetting output string");
+        feedback.setText("Resetting output string");
         Outstring = "";
 
-        Feedback.setText("Successfully Reset all Fields!");
+        feedback.setText("Successfully Reset all Fields!");
     }
 
-    public void nextimage(ActionEvent actionEvent) { //Moves to next file in the folder
-        Feedback.setText("Moving to Next File...");
+    /**
+     * Implements the actions when next image button is clicked
+     *
+     * @param actionEvent The event that triggered the call
+     */
+    public void onNextImageClicked(ActionEvent actionEvent) {
+        feedback.setText("Moving to Next File...");
 
-        Feedback.setText("Migrated to Next File");
+        feedback.setText(dropSymbol.getValue());
     }
 
-    public void preview(ActionEvent actionEvent) { //Outputs the current string to the feedback label
-        Feedback.setText(Outstring);
+    /**
+     * Implements the actions when previous image button is clicked
+     *
+     * @param actionEvent The event that triggered the call
+     */
+    public void onPrevImageClicked(ActionEvent actionEvent) {
+        feedback.setText("Moving to Next File...");
+
+        feedback.setText("Migrated to Next File");
     }
 
-    public void pushchanges(ActionEvent actionEvent) { //Creates a text fle from the output string
-        String filedir = "PLACEHOLDER";
-        Feedback.setText("Creating Text...");
-
-        Feedback.setText("Text file created at: " + filedir);
+    /**
+     * Implements the actions when undo button is clicked
+     *
+     * @param actionEvent The event that triggered the call
+     */
+    public void onUndoClicked(ActionEvent actionEvent) {
+        // undoes an image crop
     }
 
-    public void imgNext(ActionEvent actionEvent) {
+    /**
+     * Implements the actions when create file button is clicked
+     *
+     * @param actionEvent The event that triggered the call
+     */
+    public void onCreateFileClicked(ActionEvent actionEvent) {
+        // check all boxes are filled
+        // parse all input values
+        // send all values to JSONHandler
     }
 
-    public void imgPrev(ActionEvent actionEvent) {
+    /**
+     * Implements the actions when open button is clicked
+     *
+     * @param actionEvent The event that triggered the call
+     */
+    public void onOpenClicked(ActionEvent actionEvent) {
+
     }
 
-    public void imgCrop(ActionEvent actionEvent) {
+    private void checkDirectorySet() {
+        // check if directory set
+        // if not pop up window and tell to use open
     }
 }
+

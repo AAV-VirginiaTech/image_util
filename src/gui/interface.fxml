@@ -17,20 +17,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="635.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Logic">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="635.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
    <top>
       <Pane prefHeight="28.0" prefWidth="902.0" style="-fx-background-color: #d9d9d9; -fx-border-color: grey;" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="Feedback" layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="443.0" text="String Preview Bar" />
+            <Label fx:id="feedback" layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="443.0" text="String Preview Bar" />
          </children></Pane>
    </top>
    <center>
       <Pane style="-fx-border-color: grey;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="449.0" fitWidth="510.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../Resources/EXpicture.jpg" />
-               </image>
             </ImageView>
          </children></Pane>
    </center>
@@ -49,9 +46,9 @@
                <children>
                   <ButtonBar layoutY="-1.0" prefHeight="31.0" prefWidth="400.0" style="-fx-background-color: #d9d9d9;">
                      <buttons>
-                        <Button mnemonicParsing="false" text="Open" />
-                        <Button mnemonicParsing="false" onAction="#pushchanges" text="Create File" />
-                        <Button mnemonicParsing="false" onAction="#resetallfields" text="Reset" />
+                        <Button mnemonicParsing="false" text="Open" onAction="#onOpenClicked"/>
+                        <Button mnemonicParsing="false" onAction="#onCreateFileClicked" text="Create File" />
+                        <Button mnemonicParsing="false" onAction="#onResetClicked" text="Reset" />
                      </buttons>
                   </ButtonBar>
                </children>
@@ -222,9 +219,9 @@
          <children>
             <ButtonBar prefHeight="40.0" prefWidth="400.0">
                <buttons>
-                  <Button mnemonicParsing="false" onAction="#imgPrev" text="Previous Image" />
-                  <Button mnemonicParsing="false" onAction="#imgCrop" text="[Crop]" />
-                  <Button mnemonicParsing="false" onAction="#imgNext" text="Next Image" />
+                  <Button mnemonicParsing="false" onAction="#onPrevImageClicked" text="Previous Image" />
+                  <Button mnemonicParsing="false" onAction="#onUndoClicked" text="Undo" />
+                  <Button mnemonicParsing="false" onAction="#onNextImageClicked" text="Next Image" />
                </buttons>
             </ButtonBar>
          </children>
