@@ -11,17 +11,25 @@ import javafx.scene.control.Label;
  */
 public class Controller {
 
+    //The Combobox for Direction, Shape, Color, Symbol, and Symbol Color
+    @FXML private ComboBox dropDirect;
+    @FXML private ComboBox dropShape;
+    @FXML private ComboBox dropColor;
+    @FXML private ComboBox dropSymbol;
+    @FXML private ComboBox dropSymbolcolor;
+
     /**
      * The feedback label across the top of the screen
      */
+    @FXML
     private Label feedback;
 
-    @FXML
-    private ComboBox<String> dropSymbol;
 
 
+    boolean isDirKnown = false;
     int one = 1;
-    String Outstring = "";
+    String outString = "";
+    String directory = "";
 
     /**
      * Implements the actions when reset button is clicked
@@ -29,12 +37,14 @@ public class Controller {
      * @param actionEvent The event that triggered the call
      */
     public void onResetClicked(ActionEvent actionEvent) {
-        feedback.setText("Resetting all fields...");
+        try{
+            feedback.setText("Successfully Reset all Fields!");
 
-        feedback.setText("Resetting output string");
-        Outstring = "";
-
-        feedback.setText("Successfully Reset all Fields!");
+            outString = "";
+        }
+        catch(Exception e){
+            feedback.setText("Failed to reset all Fields");
+        }
     }
 
     /**
@@ -43,9 +53,14 @@ public class Controller {
      * @param actionEvent The event that triggered the call
      */
     public void onNextImageClicked(ActionEvent actionEvent) {
-        feedback.setText("Moving to Next File...");
+        if(checkDirectorySet()){
+            feedback.setText("Moving to Next File...");
 
-        feedback.setText(dropSymbol.getValue());
+            feedback.setText(outString);
+
+        }else{
+            feedback.setText("[ERR] No Directory Selected");
+        }
     }
 
     /**
@@ -54,9 +69,13 @@ public class Controller {
      * @param actionEvent The event that triggered the call
      */
     public void onPrevImageClicked(ActionEvent actionEvent) {
-        feedback.setText("Moving to Next File...");
+        if(isDirKnown){
+            feedback.setText("Moving to Previous File...");
 
-        feedback.setText("Migrated to Next File");
+
+        }else{
+            feedback.setText("[ERR] No Directory Selected");
+        }
     }
 
     /**
@@ -77,6 +96,13 @@ public class Controller {
         // check all boxes are filled
         // parse all input values
         // send all values to JSONHandler
+        if(isDirKnown){
+            feedback.setText("Sending files to JSON");
+
+
+        }else{
+            feedback.setText("[ERR] No Directory Selected");
+        }
     }
 
     /**
@@ -85,12 +111,37 @@ public class Controller {
      * @param actionEvent The event that triggered the call
      */
     public void onOpenClicked(ActionEvent actionEvent) {
+        try{
 
+            directory = "*/*/NotARealDirectory";
+            isDirKnown = true;
+        }catch(Exception e){
+            feedback.setText("No directory specified");
+        }
     }
 
-    private void checkDirectorySet() {
+    /**
+     * Checks if a directory is set
+     * Returns True if is and False if not
+     * @return
+     */
+    private boolean checkDirectorySet() {
         // check if directory set
         // if not pop up window and tell to use open
+        return true;
+    }
+
+    private boolean isFields() {
+
+        return true;
+    }
+
+    /**
+     *Checks if fields are empty by calling checkFields()
+     *Then writes those fields into the outString string
+     */
+    private void getFields() {
+        //(String) dropDirect.getValue()
     }
 }
 
