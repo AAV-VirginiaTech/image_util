@@ -1,5 +1,6 @@
 package gui;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
@@ -38,9 +39,9 @@ public class Controller {
      */
     public void onResetClicked(ActionEvent actionEvent) {
         try{
-            feedback.setText("Successfully Reset all Fields!");
-
+            resetComboBoxes();
             outString = "";
+            feedback.setText("Successfully Reset all Fields!");
         }
         catch(Exception e){
             feedback.setText("Failed to reset all Fields");
@@ -57,10 +58,8 @@ public class Controller {
             feedback.setText("Moving to Next File...");
 
             feedback.setText(outString);
-
-        }else{
-            feedback.setText("[ERR] No Directory Selected");
         }
+
     }
 
     /**
@@ -93,15 +92,13 @@ public class Controller {
      * @param actionEvent The event that triggered the call
      */
     public void onCreateFileClicked(ActionEvent actionEvent) {
-        // check all boxes are filled
-        // parse all input values
+        // check all boxes are filled - CHECK
+        // parse all input values - CHECK
         // send all values to JSONHandler
-        if(isDirKnown){
-            feedback.setText("Sending files to JSON");
-
-
-        }else{
-            feedback.setText("[ERR] No Directory Selected");
+        if(checkDirectorySet()) {
+            if(isFields()){
+                createFile(directory,getFields());
+            }
         }
     }
 
@@ -112,12 +109,22 @@ public class Controller {
      */
     public void onOpenClicked(ActionEvent actionEvent) {
         try{
-
             directory = "*/*/NotARealDirectory";
             isDirKnown = true;
         }catch(Exception e){
-            feedback.setText("No directory specified");
+            feedback.setText("[ERR]No directory specified");
         }
+    }
+
+    /**
+     * Resets the five Comboboxes [Direct, Color, Shape, Symbol, Symbolcolor when called
+     */
+    private void resetComboBoxes() {
+        dropDirect.setItems(null);
+        dropColor.setItems(null);
+        dropShape.setItems(null);
+        dropSymbol.setItems(null);
+        dropSymbolcolor.setItems(null);
     }
 
     /**
@@ -128,20 +135,56 @@ public class Controller {
     private boolean checkDirectorySet() {
         // check if directory set
         // if not pop up window and tell to use open
-        return true;
+        if(directory != ""){
+            return true;
+        } else {
+            feedback.setText("[ERR] No directory set");
+            return false;
+        }
+
     }
 
+    /**
+     * Checks if the all fields have values in them
+     * @return true if fields are not blank and false if they are
+     */
     private boolean isFields() {
-
-        return true;
+        if      ((dropDirect.getValue() == null )||
+                (dropShape.getValue() == null )||
+                (dropColor.getValue() == null )||
+                (dropSymbol.getValue() == null )||
+                (dropSymbolcolor.getValue() == null )) {
+            feedback.setText("[ERR] All fields not defined!");
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
      *Checks if fields are empty by calling checkFields()
-     *Then writes those fields into the outString string
+     *Then returns those values separated by commas [x,y,z]
      */
-    private void getFields() {
-        //(String) dropDirect.getValue()
+    private String getFields() {
+        if(isFields()) {
+            String direction = (String) dropDirect.getValue();
+            String shape = (String) dropShape.getValue();
+            String color = (String) dropColor.getValue();
+            String symbol = (String) dropSymbol.getValue();
+            String symbolcolor = (String) dropSymbolcolor.getValue();
+            return direction + ',' + shape + ',' + color + ',' + symbol + ',' + symbolcolor;
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Creates the file using a given Directory and String
+     * returns nothing
+     */
+    private void createFile(String dir, String str) {
+
+        feedback.setText("Creating File '" + dir + "' with contents '" + str +"'");
     }
 }
 
