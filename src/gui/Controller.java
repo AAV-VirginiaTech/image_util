@@ -28,19 +28,17 @@ public class Controller {
 
 
     boolean isDirKnown = false;
-    int one = 1;
-    String outString = "";
-    String directory = "";
+    String outString = null;
+    String directory = null;
 
     /**
      * Implements the actions when reset button is clicked
-     *
+     * Specifically, resets fields but not data
      * @param actionEvent The event that triggered the call
      */
     public void onResetClicked(ActionEvent actionEvent) {
         try{
             resetComboBoxes();
-            outString = "";
             feedback.setText("Successfully Reset all Fields!");
         }
         catch(Exception e){
@@ -54,10 +52,13 @@ public class Controller {
      * @param actionEvent The event that triggered the call
      */
     public void onNextImageClicked(ActionEvent actionEvent) {
-        if(checkDirectorySet()){
-            feedback.setText("Moving to Next File...");
+        if(checkDirectorySet()) {
+            if(isFields()){
+                createFile(directory,getFields());
 
-            feedback.setText(outString);
+                resetComboBoxes();
+                resetData();
+            }
         }
 
     }
@@ -128,6 +129,13 @@ public class Controller {
     }
 
     /**
+     * Clears the outstring variable and any others that may be added
+     */
+    private void resetData(){
+        outString = null;
+    }
+
+    /**
      * Checks if a directory is set
      * Returns True if is and False if not
      * @return
@@ -135,7 +143,7 @@ public class Controller {
     private boolean checkDirectorySet() {
         // check if directory set
         // if not pop up window and tell to use open
-        if(directory != ""){
+        if(directory != null){
             return true;
         } else {
             feedback.setText("[ERR] No directory set");

@@ -220,7 +220,7 @@
             <ButtonBar prefHeight="40.0" prefWidth="400.0">
                <buttons>
                   <Button mnemonicParsing="false" onAction="#onPrevImageClicked" text="Previous Image" />
-                  <Button mnemonicParsing="false" onAction="#onUndoClicked" text="Undo" />
+                  <Button mnemonicParsing="false" onAction="#onUndoClicked" text="UndoCrop" />
                   <Button mnemonicParsing="false" onAction="#onNextImageClicked" text="Next Image" />
                </buttons>
             </ButtonBar>
