@@ -3,6 +3,7 @@
 <?import java.lang.String?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ComboBox?>
@@ -27,8 +28,13 @@
    <center>
       <Pane style="-fx-border-color: grey;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="449.0" fitWidth="510.0" pickOnBounds="true" preserveRatio="true">
-            </ImageView>
+            <ImageView fx:id="imageDisplayed" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" smooth="false">
+               <image>
+                  <Image url="@../../ui/Resources/EXpicture.jpg" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport></ImageView>
          </children></Pane>
    </center>
    <left>
@@ -46,7 +52,7 @@
                <children>
                   <ButtonBar layoutY="-1.0" prefHeight="31.0" prefWidth="400.0" style="-fx-background-color: #d9d9d9;">
                      <buttons>
-                        <Button mnemonicParsing="false" text="Open" onAction="#onOpenClicked"/>
+                        <Button mnemonicParsing="false" onAction="#onOpenClicked" text="Open" />
                         <Button mnemonicParsing="false" onAction="#onCreateFileClicked" text="Create File" />
                         <Button mnemonicParsing="false" onAction="#onResetClicked" text="Reset" />
                      </buttons>

@@ -1,16 +1,20 @@
 package gui;
 
 import com.sun.org.apache.xpath.internal.operations.Bool;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+
+import javax.swing.text.html.ImageView;
 
 
 /**
  * This is the controller class that provides functionality to the buttons.
  */
-public class Controller {
+public class Controller<image> {
 
     //The Combobox for Direction, Shape, Color, Symbol, and Symbol Color
     @FXML private ComboBox dropDirect;
@@ -27,9 +31,17 @@ public class Controller {
 
 
 
+
+
     boolean isDirKnown = false;
     String outString = null;
     String directory = null;
+
+    String valDirection;
+    String valShape;
+    String valColor;
+    String valSymbol;
+    String valSymbolcolor;
 
     /**
      * Implements the actions when reset button is clicked
@@ -52,13 +64,12 @@ public class Controller {
      * @param actionEvent The event that triggered the call
      */
     public void onNextImageClicked(ActionEvent actionEvent) {
-        if(checkDirectorySet()) {
-            if(isFields()){
-                createFile(directory,getFields());
-
-                resetComboBoxes();
-                resetData();
-            }
+        if(checkDirectorySet()){
+            feedback.setText("Moving to Next File...");
+            resetComboBoxes();
+            resetData();
+        }else{
+            feedback.setText("[ERR] No Directory Selected");
         }
 
     }
@@ -69,7 +80,7 @@ public class Controller {
      * @param actionEvent The event that triggered the call
      */
     public void onPrevImageClicked(ActionEvent actionEvent) {
-        if(isDirKnown){
+        if(checkDirectorySet()){
             feedback.setText("Moving to Previous File...");
 
 
@@ -112,6 +123,8 @@ public class Controller {
         try{
             directory = "*/*/NotARealDirectory";
             isDirKnown = true;
+            showOpenFile();
+            feedback.setText("Directory set to: " + directory);
         }catch(Exception e){
             feedback.setText("[ERR]No directory specified");
         }
@@ -121,11 +134,26 @@ public class Controller {
      * Resets the five Comboboxes [Direct, Color, Shape, Symbol, Symbolcolor when called
      */
     private void resetComboBoxes() {
+        ObservableList listDirect = dropDirect.getItems();
         dropDirect.setItems(null);
+        dropDirect.setItems(listDirect);
+
+        ObservableList listColor = dropColor.getItems();
         dropColor.setItems(null);
+        dropColor.setItems(listColor);
+
+        ObservableList listShape = dropShape.getItems();
         dropShape.setItems(null);
+        dropShape.setItems(listShape);
+
+        ObservableList listSymbol = dropSymbol.getItems();
         dropSymbol.setItems(null);
+        dropSymbol.setItems(listSymbol);
+
+        ObservableList listSymbolcolor = dropSymbolcolor.getItems();
         dropSymbolcolor.setItems(null);
+        dropSymbolcolor.setItems(listSymbolcolor);
+
     }
 
     /**
@@ -133,6 +161,11 @@ public class Controller {
      */
     private void resetData(){
         outString = null;
+        valDirection = null;
+        valShape = null;
+        valColor = null;
+        valSymbol = null;
+        valSymbolcolor = null;
     }
 
     /**
@@ -171,16 +204,16 @@ public class Controller {
 
     /**
      *Checks if fields are empty by calling checkFields()
-     *Then returns those values separated by commas [x,y,z]
+     *Then returns those values separated by commas [x,y,z] until a better solution is found
      */
     private String getFields() {
         if(isFields()) {
-            String direction = (String) dropDirect.getValue();
-            String shape = (String) dropShape.getValue();
-            String color = (String) dropColor.getValue();
-            String symbol = (String) dropSymbol.getValue();
-            String symbolcolor = (String) dropSymbolcolor.getValue();
-            return direction + ',' + shape + ',' + color + ',' + symbol + ',' + symbolcolor;
+            valDirection = (String) dropDirect.getValue();
+            valShape = (String) dropShape.getValue();
+            valColor = (String) dropColor.getValue();
+            valSymbol = (String) dropSymbol.getValue();
+            valSymbolcolor = (String) dropSymbolcolor.getValue();
+            return valDirection + ',' + valShape + ',' + valColor + ',' + valSymbol + ',' + valSymbolcolor;
         } else {
             return "";
         }
@@ -193,6 +226,15 @@ public class Controller {
     private void createFile(String dir, String str) {
 
         feedback.setText("Creating File '" + dir + "' with contents '" + str +"'");
+    }
+
+    private void showOpenFile() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Please Open a Directory");
+        alert.setHeaderText("I have no idea how to do this");
+        alert.setContentText("Directory set to" + directory);
+
+        alert.showAndWait();
     }
 }
 
