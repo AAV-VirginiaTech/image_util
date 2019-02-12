@@ -14,21 +14,14 @@ public class JSONHandler {
 
 		
 		JSONArray list = new JSONArray();
-		list.add("Type:  Standard");
-		list.add("Latitude:  " );
-		list.add(lati);
-		list.add("Longitude:  ");
-		list.add(longi);
-		list.add("Orientation:  ");
-		list.add((orient));
-		list.add("Shape:  ");
-		list.add((shape));
-		list.add("Background_Color:  ");
-		list.add((backC));
-		list.add("Alphanumeric:  ");
-		list.add((alphaNum));
-		list.add("Alphanumeric_Color:  ");
-		list.add((alphaNumC));
+		list.add("Type: Standard");
+		list.add(String.format("Latitude: %d", lati));
+		list.add(String.format("Longitude: %d", longi));
+		list.add(String.format("Orientation: %s", orient));
+		list.add(String.format("Shape: %s", shape));
+		list.add(String.format("Background_Color: %s" + backC));
+		list.add(String.format("Alphanumeric: %s" + alphaNum));
+		list.add(String.format("Alphanumeric_Color: %s",alphaNumC));
 		
 		
 		//makes the JSON file
@@ -45,9 +38,8 @@ public class JSONHandler {
 	}
 
 
-}
-class jsonTester {
-	public void test(){
-		JSONHandler.jsonCreate(3.00,3.00, North, Star, Orange, B, Yellow);
-	}
+};
+
+public static void main(String[] args) {
+	JSONHandler.jsonCreate(3.00,3.00, "North", "Star", "Orange", "B", "Yellow");
 }
