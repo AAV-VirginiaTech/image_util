@@ -2,8 +2,17 @@ package gui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
+
+import javax.swing.event.MouseInputListener;
+import java.io.File;
 
 
 /**
@@ -14,7 +23,14 @@ public class Controller {
     /**
      * The feedback label across the top of the screen
      */
+    @FXML
     private Label feedback;
+
+    /**
+     * The ImageView of the ui
+     */
+    @FXML
+    private ImageView imageView;
 
     @FXML
     private ComboBox<String> dropSymbol;
@@ -91,6 +107,45 @@ public class Controller {
     private void checkDirectorySet() {
         // check if directory set
         // if not pop up window and tell to use open
+    }
+
+    /**
+     * Implements the actions when next image button is clicked
+     *
+     * @param actionEvent The event that triggered the call
+     */
+    public void onChooseFolder(ActionEvent actionEvent) {
+
+        Node source = (Node) actionEvent.getSource();
+        Window stage = source.getScene().getWindow();
+
+        final FileChooser fc = new FileChooser();
+        fc.setTitle("Image Folder Selection");
+        File file = fc.showOpenDialog(stage);
+        String path = file.getAbsolutePath();
+
+        if (file != null && file.isFile()) {
+             if (isImageFile(path)){
+                 updateFeedback("File Loaded: " + path);
+                 imageView.setImage(new Image(file.toURI().toString()));
+             } else {
+                 updateFeedback("Not an Image File: " + path);
+             }
+        } else {
+            updateFeedback("Failed to open file. Try again.");
+        }
+    }
+
+    public void imageClicked(ActionEvent e) {
+        
+    }
+
+    private void updateFeedback(String update) {
+        feedback.setText(update);
+    }
+
+    private boolean isImageFile(String path) {
+        return path.endsWith(".jpeg") || path.endsWith(".png") || path.endsWith(".raw");
     }
 }
 

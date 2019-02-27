@@ -21,13 +21,13 @@
    <top>
       <Pane prefHeight="28.0" prefWidth="902.0" style="-fx-background-color: #d9d9d9; -fx-border-color: grey;" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="feedback" layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="443.0" text="String Preview Bar" />
+            <Label fx:id="feedback" layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="443.0" text="No File Chosen!" />
          </children></Pane>
    </top>
    <center>
       <Pane style="-fx-border-color: grey;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fitHeight="449.0" fitWidth="510.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="imageView" fitHeight="449.0" fitWidth="510.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="imageClicked">
             </ImageView>
          </children></Pane>
    </center>
@@ -46,6 +46,7 @@
                <children>
                   <ButtonBar layoutY="-1.0" prefHeight="31.0" prefWidth="400.0" style="-fx-background-color: #d9d9d9;">
                      <buttons>
+                        <Button mnemonicParsing="false" text="Choose File" onAction="#onChooseFolder"/>
                         <Button mnemonicParsing="false" text="Open" onAction="#onOpenClicked"/>
                         <Button mnemonicParsing="false" onAction="#onCreateFileClicked" text="Create File" />
                         <Button mnemonicParsing="false" onAction="#onResetClicked" text="Reset" />
