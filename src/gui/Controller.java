@@ -14,10 +14,23 @@ public class Controller {
     /**
      * The feedback label across the top of the screen
      */
+    @FXML
     private Label feedback;
 
+    /**
+     * The ComboBox to select the alphanumberic character on the target
+     */
     @FXML
-    private ComboBox<String> dropSymbol;
+    private ComboBox<String> symbol;
+
+    @FXML
+    private ComboBox<String> direction;
+    @FXML
+    private ComboBox<String> shape;
+    @FXML
+    private ComboBox<String> backgroundColor;
+    @FXML
+    private ComboBox<String> symbolColor;
 
 
     int one = 1;
@@ -45,7 +58,7 @@ public class Controller {
     public void onNextImageClicked(ActionEvent actionEvent) {
         feedback.setText("Moving to Next File...");
 
-        feedback.setText(dropSymbol.getValue());
+        feedback.setText(symbol.getValue());
     }
 
     /**
@@ -74,9 +87,26 @@ public class Controller {
      * @param actionEvent The event that triggered the call
      */
     public void onCreateFileClicked(ActionEvent actionEvent) {
-        // check all boxes are filled
-        // parse all input values
-        // send all values to JSONHandler
+
+        if (allFieldsChosen()) {
+
+            String symbolValue = symbol.getValue();
+            String directionValue = direction.getValue();
+            String shapeValue = shape.getValue();
+            String symbolColorValue = symbolColor.getValue();
+            String backgroundColorValue = backgroundColor.getValue();
+
+            System.out.println("Symbol selected: " + symbolValue);
+            System.out.println("Direction selected: " + directionValue);
+            System.out.println("Shape selected: " + shapeValue);
+            System.out.println("Symbol Color selected: " + symbolColorValue);
+            System.out.println("Background Color selected: " + backgroundColorValue);
+            System.out.println();
+
+
+        } else {
+            System.out.println("Nothing Selected for one of the fields.");
+        }
     }
 
     /**
@@ -91,6 +121,14 @@ public class Controller {
     private void checkDirectorySet() {
         // check if directory set
         // if not pop up window and tell to use open
+    }
+
+    private boolean allFieldsChosen() {
+        return !symbol.getSelectionModel().isEmpty() &&
+                !direction.getSelectionModel().isEmpty() &&
+                !shape.getSelectionModel().isEmpty() &&
+                !symbolColor.getSelectionModel().isEmpty() &&
+                !backgroundColor.getSelectionModel().isEmpty();
     }
 }
 
