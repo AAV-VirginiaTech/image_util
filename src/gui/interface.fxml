@@ -27,7 +27,7 @@
    <center>
       <Pane style="-fx-border-color: grey;" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="imageView" fitHeight="449.0" fitWidth="510.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="imageClicked">
+            <ImageView fx:id="imageView" fitHeight="449.0" fitWidth="510.0" pickOnBounds="true" preserveRatio="true" onMouseClicked="#imageClicked">
             </ImageView>
          </children></Pane>
    </center>

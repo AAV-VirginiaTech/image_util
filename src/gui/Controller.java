@@ -136,7 +136,9 @@ public class Controller {
         }
     }
 
-    public void imageClicked(ActionEvent e) {
+    public void imageClicked(MouseEvent e) {
+
+        System.out.println("Mouse clicked");
         
     }
 
