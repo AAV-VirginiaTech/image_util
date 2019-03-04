@@ -1,5 +1,7 @@
 package gui;
 
+import com.drew.metadata.png.PngDirectory;
+import io.JSONHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -8,21 +10,17 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
-import javax.swing.event.MouseInputListener;
 import java.io.File;
 import java.io.IOException;
 
-import com.drew.imaging.*;
-import com.drew.lang.*;
 import com.drew.metadata.*;
-import com.drew.tools.*;
-
 import com.drew.imaging.ImageMetadataReader;
 import com.drew.imaging.ImageProcessingException;
+
+import org.apache.commons.io.FilenameUtils;
 
 
 
@@ -43,12 +41,36 @@ public class Controller {
     @FXML
     private ImageView imageView;
 
+    /**
+     * The ComboBoxes for choosing the fields describing the image
+     */
     @FXML
-    private ComboBox<String> dropSymbol;
+    private ComboBox<String> symbol;
+    @FXML
+    private ComboBox<String> direction;
+    @FXML
+    private ComboBox<String> shape;
+    @FXML
+    private ComboBox<String> backgroundColor;
+    @FXML
+    private ComboBox<String> symbolColor;
 
+    /**
+     * The Label to display the image's size
+     */
+    @FXML
+    private Label sizeLabel;
 
-    int one = 1;
-    String Outstring = "";
+    /**
+     * The path to the folder containing the current image or null
+     */
+    private String directoryPath = null;
+
+    /**
+     * The name of the current image loaded without extension or null
+     */
+    private String imageName = null;
+
 
     /**
      * Implements the actions when reset button is clicked
@@ -56,43 +78,7 @@ public class Controller {
      * @param actionEvent The event that triggered the call
      */
     public void onResetClicked(ActionEvent actionEvent) {
-        feedback.setText("Resetting all fields...");
-
-        feedback.setText("Resetting output string");
-        Outstring = "";
-
-        feedback.setText("Successfully Reset all Fields!");
-    }
-
-    /**
-     * Implements the actions when next image button is clicked
-     *
-     * @param actionEvent The event that triggered the call
-     */
-    public void onNextImageClicked(ActionEvent actionEvent) {
-        feedback.setText("Moving to Next File...");
-
-        feedback.setText(dropSymbol.getValue());
-    }
-
-    /**
-     * Implements the actions when previous image button is clicked
-     *
-     * @param actionEvent The event that triggered the call
-     */
-    public void onPrevImageClicked(ActionEvent actionEvent) {
-        feedback.setText("Moving to Next File...");
-
-        feedback.setText("Migrated to Next File");
-    }
-
-    /**
-     * Implements the actions when undo button is clicked
-     *
-     * @param actionEvent The event that triggered the call
-     */
-    public void onUndoClicked(ActionEvent actionEvent) {
-        // undoes an image crop
+        resetFields();
     }
 
     /**
@@ -100,40 +86,52 @@ public class Controller {
      *
      * @param actionEvent The event that triggered the call
      */
-    public void onCreateFileClicked(ActionEvent actionEvent) {
-        // check all boxes are filled
-        // parse all input values
-        // send all values to JSONHandler
+    public void onCreateJSONClicked(ActionEvent actionEvent) {
+        if (allFieldsChosen() && directoryPath != null && imageName != null) {
+
+            String symbolValue = symbol.getValue();
+            String directionValue = direction.getValue();
+            String shapeValue = shape.getValue();
+            String symbolColorValue = symbolColor.getValue();
+            String backgroundColorValue = backgroundColor.getValue();
+
+            String fileName = directoryPath + "/" + imageName + ".json";
+            boolean result = JSONHandler.createJson(fileName, 100.1, 200.1, directionValue, shapeValue,
+                    backgroundColorValue, symbolValue, symbolColorValue);
+
+            if (result) {
+                updateFeedback("JSON Created at: " + fileName);
+            } else {
+                updateFeedback("JSON Creation Failed.");
+            }
+        } else {
+            updateFeedback("ERROR: Not all fields are selected or an error occurred with the image name.");
+        }
     }
 
-    /**
-     * Implements the actions when open button is clicked
-     *
-     * @param actionEvent The event that triggered the call
-     */
-    public void onOpenClicked(ActionEvent actionEvent) {
-
-    }
-
-    private void checkDirectorySet() {
-        // check if directory set
-        // if not pop up window and tell to use open
-    }
 
     /**
      * Implements the actions when next image button is clicked
      *
      * @param actionEvent The event that triggered the call
      */
-    public void onChooseFolder(ActionEvent actionEvent) {
+    public void onOpenImageClicked(ActionEvent actionEvent) {
+
+        resetFields();
 
         Node source = (Node) actionEvent.getSource();
         Window stage = source.getScene().getWindow();
 
         final FileChooser fc = new FileChooser();
-        fc.setTitle("Image Folder Selection");
+        fc.setTitle("Image Selection");
         File file = fc.showOpenDialog(stage);
+
+        directoryPath = file.getParent();
+        imageName = FilenameUtils.removeExtension(file.getName());
+
+
         String path = file.getAbsolutePath();
+
 
         if (file != null && file.isFile()) {
              if (isImageFile(path)){
@@ -141,20 +139,32 @@ public class Controller {
                  imageView.setImage(new Image(file.toURI().toString()));
                  try {
                      Metadata metadata = ImageMetadataReader.readMetadata(file);
-                     //print(metadata, "Using ImageMetadataReader");
+                     Directory dir = metadata.getFirstDirectoryOfType(PngDirectory.class);
+                     System.out.println(dir.toString());
 
-                     for (Directory directory : metadata.getDirectories()) {
+                     try {
+                         int height = dir.getInt(PngDirectory.TAG_IMAGE_HEIGHT);
+                         int width = dir.getInt(PngDirectory.TAG_IMAGE_WIDTH);
+                         sizeLabel.setText("Image Size: " + height + ", " + width + " px");
+                     } catch (MetadataException e) {
+                         System.out.println("Couldn't extract size from picture.");
+                     }
 
+                     /*for (Directory directory : metadata.getDirectories()) {
+                         System.out.println(directory.getName());
                          for (Tag tag : directory.getTags()) {
-                             System.out.println(tag);
+                             System.out.println("\t" + tag);
                          }
                          for (String error : directory.getErrors()) {
                              System.err.println("ERROR: " + error);
                          }
-                     }
+                     }*/
                  } catch (ImageProcessingException e) {
                  } catch (IOException e) {
                  }
+
+
+
 
              } else {
                  updateFeedback("Not an Image File: " + path);
@@ -164,9 +174,9 @@ public class Controller {
         }
     }
 
-    public void imageClicked(MouseEvent e) {
+    public void imageClickedEvent(MouseEvent e) {
 
-        System.out.println("Mouse clicked");
+        System.out.println("Mouse clicked: " + e.getX() + " x " + e.getY());
         
     }
 
@@ -176,6 +186,22 @@ public class Controller {
 
     private boolean isImageFile(String path) {
         return path.endsWith(".jpeg") || path.endsWith(".png") || path.endsWith(".raw");
+    }
+
+    private boolean allFieldsChosen() {
+        return !symbol.getSelectionModel().isEmpty() &&
+                !direction.getSelectionModel().isEmpty() &&
+                !shape.getSelectionModel().isEmpty() &&
+                !symbolColor.getSelectionModel().isEmpty() &&
+                !backgroundColor.getSelectionModel().isEmpty();
+    }
+
+    private void resetFields() {
+        symbol.valueProperty().setValue(null);
+        direction.valueProperty().setValue(null);
+        shape.valueProperty().setValue(null);
+        backgroundColor.valueProperty().setValue(null);
+        symbolColor.valueProperty().setValue(null);
     }
 }
 

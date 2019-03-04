@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 public class JSONHandler {
 	@SuppressWarnings("unchecked")
-	public static void createJson(String filename, double lati, double longi, String orient, String shape, String backC, String alphaNum, String alphaNumC) {
+	public static boolean createJson(String filename, double lati, double longi, String orient, String shape, String backC, String alphaNum, String alphaNumC) {
 		JSONObject jo = new JSONObject();
 
 		jo.put("type", "standard");
@@ -23,10 +23,12 @@ public class JSONHandler {
 		{
 			file.write(jo.toString());
 			file.flush();
+			return true;
 		}
 		catch(IOException e)
 		{
 			e.printStackTrace();
+			return false;
 		}
 	}
 
