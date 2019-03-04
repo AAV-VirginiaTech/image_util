@@ -8,11 +8,22 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
 import javax.swing.event.MouseInputListener;
 import java.io.File;
+import java.io.IOException;
+
+import com.drew.imaging.*;
+import com.drew.lang.*;
+import com.drew.metadata.*;
+import com.drew.tools.*;
+
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.imaging.ImageProcessingException;
+
 
 
 /**
@@ -128,6 +139,23 @@ public class Controller {
              if (isImageFile(path)){
                  updateFeedback("File Loaded: " + path);
                  imageView.setImage(new Image(file.toURI().toString()));
+                 try {
+                     Metadata metadata = ImageMetadataReader.readMetadata(file);
+                     //print(metadata, "Using ImageMetadataReader");
+
+                     for (Directory directory : metadata.getDirectories()) {
+
+                         for (Tag tag : directory.getTags()) {
+                             System.out.println(tag);
+                         }
+                         for (String error : directory.getErrors()) {
+                             System.err.println("ERROR: " + error);
+                         }
+                     }
+                 } catch (ImageProcessingException e) {
+                 } catch (IOException e) {
+                 }
+
              } else {
                  updateFeedback("Not an Image File: " + path);
              }
