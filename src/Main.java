@@ -10,7 +10,11 @@ public class Main extends Application {
 
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = FXMLLoader.load(getClass().getResource("./gui/interface.fxml"));
+        String fxml = "/main/resources/interface.fxml";
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxml));
+        Parent root = loader.load();
         primaryStage.setTitle("AAV Photo UI");
         primaryStage.setScene(new Scene(root, 1200, 800));
         primaryStage.show();

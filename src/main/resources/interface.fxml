@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" prefHeight="635.0" prefWidth="902.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+   <top>
+      <Pane prefHeight="28.0" prefWidth="902.0" style="-fx-background-color: #d9d9d9; -fx-border-color: grey;" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="feedback" layoutX="14.0" layoutY="6.0" prefHeight="17.0" prefWidth="443.0" text="No File Chosen!" />
+         </children></Pane>
+   </top>
+   <center>
+      <Pane style="-fx-border-color: grey;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fx:id="imageView" fitHeight="600" fitWidth="600" pickOnBounds="true" preserveRatio="true" onMouseClicked="#imageClickedEvent">
+            </ImageView>
+         </children></Pane>
+   </center>
+   <left>
+      <GridPane prefWidth="400.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="1.7976931348623157E308" minHeight="10.0" prefHeight="274.0" vgrow="ALWAYS" />
+            <RowConstraints maxHeight="421.0" minHeight="10.0" prefHeight="141.0" vgrow="NEVER" />
+          <RowConstraints maxHeight="217.0" minHeight="0.0" prefHeight="33.0" vgrow="NEVER" />
+        </rowConstraints>
+         <children>
+            <Pane maxHeight="30.0" prefHeight="30.0" prefWidth="200.0" style="-fx-border-color: grey;" GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER">
+               <children>
+                  <ButtonBar layoutY="-1.0" prefHeight="31.0" prefWidth="400.0" style="-fx-background-color: #d9d9d9;">
+                     <buttons>
+                        <Button mnemonicParsing="false" onAction="#onResetClicked" text="Reset Fields" />
+                        <Button mnemonicParsing="false" text="Open Image" onAction="#onOpenImageClicked"/>
+                        <Button mnemonicParsing="false" onAction="#onCreateJSONClicked" text="Create JSON" />
+                     </buttons>
+                  </ButtonBar>
+               </children>
+            </Pane>
+            <GridPane gridLinesVisible="true" GridPane.rowIndex="1">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label text="Orientation" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                  <ComboBox fx:id="direction" layoutX="15.0" layoutY="33.0" prefWidth="200.0" promptText="ORIENTATION" GridPane.columnIndex="1">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="North" />
+                           <String fx:value="North-East" />
+                           <String fx:value="East" />
+                           <String fx:value="South-East" />
+                           <String fx:value="South" />
+                           <String fx:value="South-West" />
+                           <String fx:value="West" />
+                           <String fx:value="North-West" />
+                        </FXCollections>
+                     </items>
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </ComboBox>
+                  <Label text="Shape" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="shape" layoutX="15.0" layoutY="33.0" prefWidth="200.0" promptText="SHAPE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Circle" />
+                           <String fx:value="Semicircle" />
+                           <String fx:value="Quarter-circle" />
+                           <String fx:value="Triangle" />
+                           <String fx:value="Square" />
+                           <String fx:value="Rectangle" />
+                           <String fx:value="Trapazoid" />
+                           <String fx:value="Pentagon" />
+                           <String fx:value="Hexagon" />
+                           <String fx:value="Heptagon" />
+                           <String fx:value="Octogon" />
+                           <String fx:value="Star" />
+                           <String fx:value="Cross" />
+                        </FXCollections>
+                     </items>
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </ComboBox>
+                  <Label text="Color" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                  <ComboBox fx:id="backgroundColor" layoutX="15.0" layoutY="33.0" prefWidth="200.0" promptText="COLOR" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <items>
+                        <FXCollections fx:id="standardColors" fx:factory="observableArrayList">
+                           <String fx:value="Red" />
+                           <String fx:value="Orange" />
+                           <String fx:value="Yellow" />
+                           <String fx:value="Green" />
+                           <String fx:value="Blue" />
+                           <String fx:value="Purple" />
+                           <String fx:value="Brown" />
+                           <String fx:value="White" />
+                           <String fx:value="Gray" />
+                           <String fx:value="Black" />
+                        </FXCollections>
+                     </items>
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </ComboBox>
+                  <Label text="Symbol" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                  <TextField promptText="Symbol" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="symbol" layoutX="15.0" layoutY="33.0" prefWidth="200.0" promptText="SYMBOL" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="a" />
+                           <String fx:value="b" />
+                           <String fx:value="c" />
+                           <String fx:value="d" />
+                           <String fx:value="e" />
+                           <String fx:value="f" />
+                           <String fx:value="g" />
+                           <String fx:value="h" />
+                           <String fx:value="i" />
+                           <String fx:value="j" />
+                           <String fx:value="k" />
+                           <String fx:value="l" />
+                           <String fx:value="m" />
+                           <String fx:value="n" />
+                           <String fx:value="o" />
+                           <String fx:value="p" />
+                           <String fx:value="q" />
+                           <String fx:value="r" />
+                           <String fx:value="s" />
+                           <String fx:value="t" />
+                           <String fx:value="u" />
+                           <String fx:value="v" />
+                           <String fx:value="w" />
+                           <String fx:value="x" />
+                           <String fx:value="y" />
+                           <String fx:value="z" />
+                           <String fx:value="A" />
+                           <String fx:value="B" />
+                           <String fx:value="C" />
+                           <String fx:value="D" />
+                           <String fx:value="E" />
+                           <String fx:value="F" />
+                           <String fx:value="G" />
+                           <String fx:value="H" />
+                           <String fx:value="I" />
+                           <String fx:value="J" />
+                           <String fx:value="K" />
+                           <String fx:value="L" />
+                           <String fx:value="M" />
+                           <String fx:value="N" />
+                           <String fx:value="O" />
+                           <String fx:value="P" />
+                           <String fx:value="Q" />
+                           <String fx:value="R" />
+                           <String fx:value="S" />
+                           <String fx:value="T" />
+                           <String fx:value="U" />
+                           <String fx:value="V" />
+                           <String fx:value="W" />
+                           <String fx:value="X" />
+                           <String fx:value="Y" />
+                           <String fx:value="Z" />
+                           <String fx:value="0" />
+                           <String fx:value="1" />
+                           <String fx:value="2" />
+                           <String fx:value="3" />
+                           <String fx:value="4" />
+                           <String fx:value="5" />
+                           <String fx:value="6" />
+                           <String fx:value="7" />
+                           <String fx:value="8" />
+                           <String fx:value="9" />
+                        </FXCollections>
+                     </items>
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </ComboBox>
+                  <ComboBox fx:id="symbolColor" layoutX="15.0" layoutY="33.0" prefWidth="100.0" promptText="COLOR" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <items>
+                        <fx:reference source="standardColors" />
+                     </items>
+                     <GridPane.margin>
+                        <Insets left="5.0" right="5.0" />
+                     </GridPane.margin>
+                  </ComboBox>
+               </children>
+            </GridPane>
+            <Label fx:id="sizeLabel" alignment="TOP_LEFT" text="Metadata reader not implemented" />
+         </children>
+      </GridPane>
+   </left>
+   <bottom>
+   </bottom>
+</BorderPane>
