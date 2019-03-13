@@ -1,6 +1,5 @@
 package gui;
 
-import com.drew.metadata.png.PngDirectory;
 import io.JSONHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,11 +13,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 
 import java.io.File;
-import java.io.IOException;
-
-import com.drew.metadata.*;
-import com.drew.imaging.ImageMetadataReader;
-import com.drew.imaging.ImageProcessingException;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -137,35 +131,6 @@ public class Controller {
              if (isImageFile(path)){
                  updateFeedback("File Loaded: " + path);
                  imageView.setImage(new Image(file.toURI().toString()));
-                 try {
-                     Metadata metadata = ImageMetadataReader.readMetadata(file);
-                     Directory dir = metadata.getFirstDirectoryOfType(PngDirectory.class);
-                     System.out.println(dir.toString());
-
-                     try {
-                         int height = dir.getInt(PngDirectory.TAG_IMAGE_HEIGHT);
-                         int width = dir.getInt(PngDirectory.TAG_IMAGE_WIDTH);
-                         sizeLabel.setText("Image Size: " + height + ", " + width + " px");
-                     } catch (MetadataException e) {
-                         System.out.println("Couldn't extract size from picture.");
-                     }
-
-                     /*for (Directory directory : metadata.getDirectories()) {
-                         System.out.println(directory.getName());
-                         for (Tag tag : directory.getTags()) {
-                             System.out.println("\t" + tag);
-                         }
-                         for (String error : directory.getErrors()) {
-                             System.err.println("ERROR: " + error);
-                         }
-                     }*/
-                 } catch (ImageProcessingException e) {
-                 } catch (IOException e) {
-                 }
-
-
-
-
              } else {
                  updateFeedback("Not an Image File: " + path);
              }
@@ -175,8 +140,11 @@ public class Controller {
     }
 
     public void imageClickedEvent(MouseEvent e) {
-
-        System.out.println("Mouse clicked: " + e.getX() + " x " + e.getY());
+        /**
+         * Not in use
+         *
+         *System.out.println("Mouse clicked: " + e.getX() + " x " + e.getY());
+         */
         
     }
 
