@@ -95,6 +95,7 @@ public class Controller {
 
             if (result) {
                 updateFeedback("JSON Created at: " + fileName);
+                resetFields();
             } else {
                 updateFeedback("JSON Creation Failed.");
             }
@@ -131,6 +132,7 @@ public class Controller {
              if (isImageFile(path)){
                  updateFeedback("File Loaded: " + path);
                  imageView.setImage(new Image(file.toURI().toString()));
+                 resetFields();
              } else {
                  updateFeedback("Not an Image File: " + path);
              }
