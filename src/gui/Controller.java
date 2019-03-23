@@ -155,7 +155,7 @@ public class Controller {
     }
 
     private boolean isImageFile(String path) {
-        return path.endsWith(".jpeg") || path.endsWith(".png") || path.endsWith(".raw");
+        return path.endsWith(".jpg") || path.endsWith(".JPG");
     }
 
     private boolean allFieldsChosen() {

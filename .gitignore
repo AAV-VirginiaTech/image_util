@@ -4,3 +4,4 @@ out/*
 Resources/*
 /bin/
 .uuid
+.vscode/*
