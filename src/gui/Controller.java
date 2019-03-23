@@ -118,6 +118,11 @@ public class Controller {
         Window stage = source.getScene().getWindow();
 
         final FileChooser fc = new FileChooser();
+
+        if (directoryPath != null) {
+            fc.setInitialDirectory(new File(directoryPath));
+        }
+
         fc.setTitle("Image Selection");
         File file = fc.showOpenDialog(stage);
 
